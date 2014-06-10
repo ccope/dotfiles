@@ -1,0 +1,19 @@
+[user]
+	name = Cam Cope
+	email = ccope@brightcove.com
+[color]
+  ui = true
+[format]
+	pretty = %Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset
+
+[alias]
+	co = checkout
+	ci = commit
+	dt = difftool
+	st = status
+	br = branch
+	type = cat-file -t
+	dump = cat-file -p
+	change = !sh -c 'git difftool ${1-HEAD}^ ${1-HEAD}' -
+	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --decorate
+	hist = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
