@@ -5,6 +5,7 @@ My personal dotfiles
 
 General Setup
 ====
+ - Install GNU Stow
  - Clone repo && cd to repo root
  - stow [folder] to symlink contents to ~/
 
