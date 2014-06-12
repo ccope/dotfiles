@@ -1,6 +1,6 @@
 filetype off
 set nocompatible
-set rtp+=~/.vim/bundle/vundle/
+set rtp+=~/.vim/bundle/Vundle.vim/
 call vundle#rc()
 " Bundles
 Bundle 'gmarik/vundle'
