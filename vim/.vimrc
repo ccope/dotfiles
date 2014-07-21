@@ -48,3 +48,5 @@ function! s:DiffWithSaved()
 endfunction
 com! DiffSaved call s:DiffWithSaved()
 colorscheme jellybeans
+
+let mapleader=" "
