@@ -13,4 +13,4 @@ Vim Setup
 ====
  - Follow General Setup
  - Download Vundle: https://github.com/gmarik/Vundle.vim#quick-start
- - Open vim, run ```:BundleInstall```
+ - Open vim, run ```:PluginInstall```

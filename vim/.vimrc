@@ -1,9 +1,9 @@
 filetype off
 set nocompatible
-set rtp+=~/.vim/bundle/Vundle.vim/
+set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#rc()
 " Bundles
-Bundle 'gmarik/vundle'
+Bundle 'gmarik/Vundle.vim'
 Bundle 'tpope/vim-rvm'
 Bundle 'ervandew/supertab'
 Bundle 'tpope/vim-fugitive'
