@@ -11,7 +11,7 @@ Bundle 'tpope/vim-surround'
 Bundle 'alfredodeza/pytest'
 Bundle 'scrooloose/syntastic'
 Bundle 'scrooloose/nerdtree'
-Bundle 'Lokaltog/vim-powerline'
+Bundle 'Lokaltog/powerline'
 Bundle 'vim-scripts/matchit.zip'
 Bundle 'greyblake/vim-preview'
 Bundle 'airblade/vim-gitgutter'
@@ -24,7 +24,7 @@ Bundle 'christoomey/vim-tmux-navigator'
 " Color bundles
 Bundle 'nanotech/jellybeans.vim'
 Bundle 'twerth/ir_black'
-
+set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
 
 syntax on
 filetype plugin indent on
