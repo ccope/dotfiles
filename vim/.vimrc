@@ -18,7 +18,7 @@ Bundle 'vim-scripts/matchit.zip'
 Bundle 'greyblake/vim-preview'
 Bundle 'airblade/vim-gitgutter'
 Bundle 't9md/vim-chef'
-Bundle 'jaxbot/github-issues.vim'
+"Bundle 'jaxbot/github-issues.vim'
 Bundle 'skalnik/vim-vroom'
 Bundle 'kien/ctrlp.vim'
 " Color bundles
