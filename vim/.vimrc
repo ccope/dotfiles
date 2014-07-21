@@ -20,6 +20,7 @@ Bundle 'klen/python-mode'
 "Bundle 'jaxbot/github-issues.vim'
 Bundle 'skalnik/vim-vroom'
 Bundle 'kien/ctrlp.vim'
+Bundle 'christoomey/vim-tmux-navigator'
 " Color bundles
 Bundle 'nanotech/jellybeans.vim'
 Bundle 'twerth/ir_black'
