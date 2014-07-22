@@ -8,9 +8,12 @@
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 HISTCONTROL=ignoreboth
+PROMPT_COMMAND='history -a'
 
 # append to the history file, don't overwrite it
 shopt -s histappend
+# store multiline commands as single entries
+shopt -s cmdhist
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 HISTSIZE=90000
@@ -52,15 +55,26 @@ if [ -n "$force_color_prompt" ]; then
 	color_prompt=
     fi
 fi
+if [ "$COLORTERM" == "gnome-terminal" ] || [ "$COLORTERM" == "xfce4-terminal" ]
+then
+	if [ "$TERM" == "screen" ] || [ -n $TMUX ]
+	then
+		TERM=screen-256color
+	else
+		TERM=xterm-256color
+	fi
+	color_prompt=yes
+fi
 
 GIT_PS1_SHOWDIRTYSTATE=1
 GIT_PS1_SHOWSTASHSTATE=1
 GIT_PS1_SHOWUNTRACKEDFILES=1
 GIT_PS1_SHOWUPSTREAM="auto"
 
+# This gets replaced by powerline now
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\H\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$(__git_ps1 "(%s)")$ '
-    [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+    # PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\H\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$(__git_ps1 "(%s)")$ '
+    PS1='[\[\e[0;32m\]\u\[\e[1;37m\]@\[\e[1;37m\]\H\[\e[1;33m\]:\w$(__git_ps1 " (%s)")\[\e[0m\]]\$ '
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
@@ -79,19 +93,16 @@ esac
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
     alias ls='ls --color=auto'
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
-
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
+    export GREP_OPTIONS='--color=auto'
 fi
 
-# some more ls aliases
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
-alias ls='ls --color=auto'
+# Command Aliases
+alias ll='ls -alhGF --color=auto';
+alias atup='atop -A -v -f 3';
+alias duf='du -sk * | sort -n | perl -ne '\''($s,$f)=split(m{\t});for (qw(K M G)) {if($s<1024) {printf("%.1f",$s);print "$_\t$f"; last};$s=$s/1024}'\'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias +='pushd .'
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
@@ -113,13 +124,23 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
-export PATH
-export P4EDITOR='vim'
-export P4USER='ccope'
-export P4PORT='perforce.vidmark.local:1666'
-export P4CONFIG='p4config.txt'
-export P4CLIENT='ccope-think'
+POWERLINE="$HOME/.vim/bundle/powerline/powerline/bindings/bash/powerline.sh"
+if [ -f $POWERLINE ]
+then
+	. $POWERLINE
+fi
+# Environment Variables
+export COPYFILE_DISABLE=true
+export CLICOLOR=1
+export PATH=/sbin:/usr/sbin:$PATH
+export PATH="$PATH:$HOME/.local/bin"
 export EDITOR="vim"
-export P4EDITOR='vim +/"<enter description here>" -c "%s/<enter description here>/null\r    Reviewer:syseng/g" -c "%s/null/ /g"'
+export DEBFULLNAME="Cam Cope"
+export DEBEMAIL="maccam94@gmail.com"
+export LC_ALL="en_US.UTF-8"
 
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+RBENV="$HOME/.rbenv/bin"
+if [ -d $RBENV ]; then
+	export PATH="$RBENV:$PATH"
+        eval "$(rbenv init -)"
+fi
