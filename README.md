@@ -12,5 +12,6 @@ General Setup
 Vim Setup
 ====
  - Follow General Setup
+ - Install deps for powerline (see instructions in github repo)
  - Download Vundle: https://github.com/gmarik/Vundle.vim#quick-start
  - Open vim, run ```:PluginInstall```
