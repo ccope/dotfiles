@@ -1,6 +1,6 @@
 [user]
 	name = Cam Cope
-	email = ccope@brightcove.com
+	email = git@camcope.me
 [color]
   ui = true
 [format]
@@ -17,3 +17,5 @@
 	change = !sh -c 'git difftool ${1-HEAD}^ ${1-HEAD}' -
 	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --decorate
 	hist = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
+[push]
+	default = simple
