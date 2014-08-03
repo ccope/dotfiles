@@ -8,7 +8,6 @@
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 HISTCONTROL=ignoreboth
-PROMPT_COMMAND='history -a'
 
 # append to the history file, don't overwrite it
 shopt -s histappend
@@ -129,6 +128,15 @@ if [ -f $POWERLINE ]
 then
 	. $POWERLINE
 fi
+
+if [[ $PROMPT_COMMAND == *pwd* ]]
+then
+        if [[ $PROMPT_COMMAND != *history* ]]
+        then
+                PROMPT_COMMAND="$PROMPT_COMMAND; history -a"
+        fi
+fi
+
 # Environment Variables
 export COPYFILE_DISABLE=true
 export CLICOLOR=1
