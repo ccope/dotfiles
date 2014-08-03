@@ -62,6 +62,7 @@ then
 	else
 		TERM=xterm-256color
 	fi
+        export CLICOLOR=1
 	color_prompt=yes
 fi
 
@@ -139,7 +140,6 @@ fi
 
 # Environment Variables
 export COPYFILE_DISABLE=true
-export CLICOLOR=1
 export PATH=/sbin:/usr/sbin:$PATH
 export PATH="$PATH:$HOME/.local/bin"
 export EDITOR="vim"
