@@ -106,7 +106,7 @@ unset color_prompt force_color_prompt
 # Environment Variables
 export COPYFILE_DISABLE=true
 export PATH=/sbin:/usr/sbin:$PATH
-export PATH="$PATH:$HOME/.local/bin"
+export PATH="$PATH:$HOME/.vim/bundle/powerline/scripts"
 export EDITOR="vim"
 export DEBFULLNAME="Cam Cope"
 export DEBEMAIL="maccam94@gmail.com"
