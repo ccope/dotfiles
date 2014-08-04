@@ -71,24 +71,6 @@ GIT_PS1_SHOWSTASHSTATE=1
 GIT_PS1_SHOWUNTRACKEDFILES=1
 GIT_PS1_SHOWUPSTREAM="auto"
 
-# This gets replaced by powerline now
-if [ "$color_prompt" = yes ]; then
-    # PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\H\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$(__git_ps1 "(%s)")$ '
-    PS1='[\[\e[0;32m\]\u\[\e[1;37m\]@\[\e[1;37m\]\H\[\e[1;33m\]:\w$(__git_ps1 " (%s)")\[\e[0m\]]\$ '
-else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
-fi
-unset color_prompt force_color_prompt
-
-# If this is an xterm set the title to user@host:dir
-case "$TERM" in
-xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
-    ;;
-*)
-    ;;
-esac
-
 # Alias definitions.
 # You may want to put all your additions into a separate file like
 # ~/.bash_aliases, instead of adding them here directly.
@@ -106,18 +88,25 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
 fi
 
 POWERLINE="$HOME/.vim/bundle/powerline/powerline/bindings/bash/powerline.sh"
-if [ -f $POWERLINE ]
+if [ -f $POWERLINE ] && [ "$color_prompt" == yes ]
 then
 	. $POWERLINE
+elif [ "$color_prompt" == yes ]
+then
+	PS1='[\[\e[0;32m\]\u\[\e[1;37m\]@\[\e[1;37m\]\H\[\e[1;33m\]:\w$(__git_ps1 " (%s)")\[\e[0m\]]\$ '
+else
+	PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
 
-if [[ $PROMPT_COMMAND == *pwd* ]]
+if [ -z "$PROMPT_COMMAND" ]
 then
-        if [[ $PROMPT_COMMAND != *history* ]]
-        then
-                PROMPT_COMMAND="$PROMPT_COMMAND; history -a"
-        fi
+	PROMPT_COMMAND="history -a"
+elif [[ $PROMPT_COMMAND != *history* ]]
+then
+	PROMPT_COMMAND="$PROMPT_COMMAND; history -a"
 fi
+
+unset color_prompt force_color_prompt
 
 # Environment Variables
 export COPYFILE_DISABLE=true
