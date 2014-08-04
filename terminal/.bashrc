@@ -11,6 +11,8 @@ HISTCONTROL=ignoreboth
 
 # append to the history file, don't overwrite it
 shopt -s histappend
+PROMPT_COMMAND="history -a"
+
 # store multiline commands as single entries
 shopt -s cmdhist
 
@@ -98,13 +100,6 @@ else
 	PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
 
-if [ -z "$PROMPT_COMMAND" ]
-then
-	PROMPT_COMMAND="history -a"
-elif [[ $PROMPT_COMMAND != *history* ]]
-then
-	PROMPT_COMMAND="$PROMPT_COMMAND; history -a"
-fi
 
 unset color_prompt force_color_prompt
 
