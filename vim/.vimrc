@@ -31,6 +31,7 @@ Bundle 'Lokaltog/powerline'
 Bundle 'nanotech/jellybeans.vim'
 set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
 
+colorscheme jellybeans
 syntax on
 filetype plugin indent on
 set laststatus=2   " Always show the statusline
@@ -43,6 +44,14 @@ autocmd BufRead *.py set smartindent cinwords=if,elif,else,for,while,try,except,
 set foldmethod=indent
 set foldlevel=99
 set completeopt=menuone,longest,preview
+
+" Allow synastic to work with python-mode
+let g:pymode_lint = 0
+
+" Change leader to space
+let mapleader=" "
+
+" Custom Functions
 function! s:DiffWithSaved()
 	let filetype=&ft
 	diffthis
@@ -51,9 +60,4 @@ function! s:DiffWithSaved()
 	exe "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype
 endfunction
 com! DiffSaved call s:DiffWithSaved()
-colorscheme jellybeans
 
-" Allow synastic to work with python-mode
-let g:pymode_lint = 0
-
-let mapleader=" "
