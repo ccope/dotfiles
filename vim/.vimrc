@@ -24,6 +24,8 @@ Bundle 'klen/python-mode'
 Bundle 'alfredodeza/pytest'
 " Ruby
 Bundle 'skalnik/vim-vroom'
+" Go
+Bundle 'fatih/vim-go'
 " Tmux
 Bundle 'christoomey/vim-tmux-navigator'
 " Eye candy
