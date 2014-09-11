@@ -112,6 +112,7 @@ export DEBFULLNAME="Cam Cope"
 export DEBEMAIL="maccam94@gmail.com"
 export UBUEMAIL="maccam94@gmail.com"
 export LC_ALL="en_US.UTF-8"
+export GOPATH=/usr/lib/go
 
 RBENV="$HOME/.rbenv/bin"
 if [ -d $RBENV ]; then
