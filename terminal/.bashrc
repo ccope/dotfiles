@@ -119,3 +119,6 @@ if [ -d $RBENV ]; then
 	export PATH="$RBENV:$PATH"
         eval "$(rbenv init -)"
 fi
+if [ -d "$HOME/.arc_install" ]; then
+	export PATH="$PATH:$HOME/.arc_install/arcanist/bin"
+fi
