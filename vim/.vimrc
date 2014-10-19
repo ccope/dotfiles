@@ -29,9 +29,8 @@ Bundle 'fatih/vim-go'
 " Tmux
 Bundle 'christoomey/vim-tmux-navigator'
 " Eye candy
-Bundle 'Lokaltog/powerline'
 Bundle 'nanotech/jellybeans.vim'
-set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
+set rtp+=/usr/local/lib/python2.7/dist-packages/powerline/bindings/vim/
 
 colorscheme jellybeans
 syntax on
