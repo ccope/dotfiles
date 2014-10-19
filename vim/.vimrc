@@ -8,9 +8,10 @@ Bundle 'gmarik/Vundle.vim'
 Bundle 'ervandew/supertab'
 Bundle 'scrooloose/syntastic'
 Bundle 'tpope/vim-surround'
-" Git
+" VCS
 Bundle 'tpope/vim-fugitive'
-Bundle 'airblade/vim-gitgutter'
+Bundle 'mhinz/vim-signify'
+set rtp+=/home/cam/.vim/bundle/vim-lawrencium/
 " File browsing/search
 Bundle 'scrooloose/nerdtree'
 Bundle 'kien/ctrlp.vim'
