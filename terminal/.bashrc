@@ -89,7 +89,7 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
-POWERLINE="/usr/local/lib/python2.7/dist-packages/powerline/bindings/bash/powerline.sh"
+POWERLINE="$HOME/.local/lib/python2.7/site-packages/powerline/bindings/bash/powerline.sh"
 if [ "$color_prompt" == yes ]
 then
 	if [ -f $POWERLINE ]
@@ -110,19 +110,12 @@ unset color_prompt force_color_prompt
 
 # Environment Variables
 export COPYFILE_DISABLE=true
-export GOPATH="/home/cam/work/dropbox/repos/go-server"
-export PATH=/sbin:/usr/sbin:$GOPATH/bin:$PATH
 export EDITOR="vim"
 export DEBFULLNAME="Cam Cope"
 export DEBEMAIL="maccam94@gmail.com"
 export UBUEMAIL="maccam94@gmail.com"
 export LC_ALL="en_US.UTF-8"
 
-RBENV="$HOME/.rbenv/bin"
 if [ -d $RBENV ]; then
-	export PATH="$RBENV:$PATH"
         eval "$(rbenv init -)"
-fi
-if [ -d "$HOME/.arc_install" ]; then
-	export PATH="$PATH:$HOME/.arc_install/arcanist/bin"
 fi

@@ -8,6 +8,26 @@
 # for ssh logins, install and configure the libpam-umask package.
 #umask 022
 
+# PATH additions
+export GOPATH="/home/cam/work/dropbox/repos/go-server"
+export PATH=/sbin:/usr/sbin:$GOPATH/bin:$PATH
+if [ -d "$HOME/.local/bin" ] ; then
+        PATH="$HOME/.local/bin:$PATH"
+fi
+
+export RBENV="$HOME/.rbenv/bin"
+if [ -d $RBENV ]; then
+	export PATH="$RBENV:$PATH"
+fi
+
+if [ -d "$HOME/.arc_install" ]; then
+	export PATH="$PATH:$HOME/.arc_install/arcanist/bin"
+fi
+
+if [ -d "$HOME/bin" ] ; then
+    PATH="$HOME/bin:$PATH"
+fi
+
 # if running bash
 if [ -n "$BASH_VERSION" ]; then
     # include .bashrc if it exists
@@ -16,7 +36,4 @@ if [ -n "$BASH_VERSION" ]; then
     fi
 fi
 
-# set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/bin" ] ; then
-    PATH="$HOME/bin:$PATH"
-fi
+unset RBENV
