@@ -89,13 +89,18 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
-POWERLINE="$HOME/.vim/bundle/powerline/powerline/bindings/bash/powerline.sh"
-if [ -f $POWERLINE ] && [ "$color_prompt" == yes ]
+POWERLINE="/usr/local/lib/python2.7/dist-packages/powerline/bindings/bash/powerline.sh"
+if [ "$color_prompt" == yes ]
 then
-	. $POWERLINE
-elif [ "$color_prompt" == yes ]
-then
-	PS1='[\[\e[0;32m\]\u\[\e[1;37m\]@\[\e[1;37m\]\H\[\e[1;33m\]:\w$(__git_ps1 " (%s)")\[\e[0m\]]\$ '
+	if [ -f $POWERLINE ]
+	then
+		powerline-daemon -q
+		POWERLINE_BASH_CONTINUATION=1
+		POWERLINE_BASH_SELECT=1
+		. $POWERLINE
+	else
+		PS1='[\[\e[0;32m\]\u\[\e[1;37m\]@\[\e[1;37m\]\H\[\e[1;33m\]:\w$(__git_ps1 " (%s)")\[\e[0m\]]\$ '
+	fi
 else
 	PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
@@ -105,14 +110,13 @@ unset color_prompt force_color_prompt
 
 # Environment Variables
 export COPYFILE_DISABLE=true
-export PATH=/sbin:/usr/sbin:$PATH
-export PATH="$PATH:$HOME/.vim/bundle/powerline/scripts"
+export GOPATH="/home/cam/work/dropbox/repos/go-server"
+export PATH=/sbin:/usr/sbin:$GOPATH/bin:$PATH
 export EDITOR="vim"
 export DEBFULLNAME="Cam Cope"
 export DEBEMAIL="maccam94@gmail.com"
 export UBUEMAIL="maccam94@gmail.com"
 export LC_ALL="en_US.UTF-8"
-export GOPATH=/usr/lib/go
 
 RBENV="$HOME/.rbenv/bin"
 if [ -d $RBENV ]; then

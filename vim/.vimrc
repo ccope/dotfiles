@@ -8,9 +8,10 @@ Bundle 'gmarik/Vundle.vim'
 Bundle 'ervandew/supertab'
 Bundle 'scrooloose/syntastic'
 Bundle 'tpope/vim-surround'
-" Git
+" VCS
 Bundle 'tpope/vim-fugitive'
-Bundle 'airblade/vim-gitgutter'
+Bundle 'mhinz/vim-signify'
+set rtp+=/home/cam/.vim/bundle/vim-lawrencium/
 " File browsing/search
 Bundle 'scrooloose/nerdtree'
 Bundle 'kien/ctrlp.vim'
@@ -29,9 +30,8 @@ Bundle 'fatih/vim-go'
 " Tmux
 Bundle 'christoomey/vim-tmux-navigator'
 " Eye candy
-Bundle 'Lokaltog/powerline'
 Bundle 'nanotech/jellybeans.vim'
-set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
+set rtp+=/usr/local/lib/python2.7/dist-packages/powerline/bindings/vim/
 
 colorscheme jellybeans
 syntax on
