@@ -92,6 +92,7 @@ fi
 POWERLINE="$HOME/.local/lib/python2.7/site-packages/powerline/bindings/bash/powerline.sh"
 if [ "$color_prompt" == yes ]
 then
+	export LESS="-R"
 	if [ -f $POWERLINE ]
 	then
 		powerline-daemon -q
@@ -111,9 +112,9 @@ unset color_prompt force_color_prompt
 # Environment Variables
 export COPYFILE_DISABLE=true
 export EDITOR="vim"
-export DEBFULLNAME="Cam Cope"
-export DEBEMAIL="maccam94@gmail.com"
-export UBUEMAIL="maccam94@gmail.com"
+export DEBFULLNAME="Cameron Cope"
+export DEBEMAIL="cam@dropbox.com"
+export UBUEMAIL=$DEBEMAIL
 export LC_ALL="en_US.UTF-8"
 
 if [ -d $RBENV ]; then

@@ -47,8 +47,16 @@ set foldmethod=indent
 set foldlevel=99
 set completeopt=menuone,longest,preview
 
+" Auto-close doc window
+autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+
 " Allow synastic to work with python-mode
 let g:pymode_lint = 0
+
+" Use python-mode instead of syntastic on py files
+let g:syntastic_ignore_files = ['\.py$']
+autocmd FileType python let g:syntastic_check_on_wq = 0
 
 " Change leader to space
 let mapleader=" "
@@ -91,3 +99,5 @@ function! DoPrettyXML()
   exe "set ft=" . l:origft
 endfunction
 command! PrettyXML call DoPrettyXML()
+
+set nomodeline
