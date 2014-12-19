@@ -51,12 +51,12 @@ set completeopt=menuone,longest,preview
 autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
-" Allow synastic to work with python-mode
-let g:pymode_lint = 0
-
 " Use python-mode instead of syntastic on py files
 let g:syntastic_ignore_files = ['\.py$']
 autocmd FileType python let g:syntastic_check_on_wq = 0
+
+let g:pymode_options_max_line_length = 100
+let g:pymode_lint_options_pep8 = {'max_line_length': g:pymode_options_max_line_length}
 
 " Change leader to space
 let mapleader=" "
