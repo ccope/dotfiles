@@ -8,6 +8,8 @@ Bundle 'gmarik/Vundle.vim'
 Bundle 'ervandew/supertab'
 Bundle 'scrooloose/syntastic'
 Bundle 'tpope/vim-surround'
+" tagbar dep: apt-get install exuberant-ctags
+Bundle 'majutsushi/tagbar' 
 " VCS
 Bundle 'tpope/vim-fugitive'
 Bundle 'mhinz/vim-signify'
@@ -43,7 +45,7 @@ au FileType python setlocal tabstop=4 expandtab shiftwidth=4 softtabstop=4 autoi
 au FileType xml setlocal tabstop=4 expandtab shiftwidth=4 softtabstop=4 autoindent
 let g:SuperTabDefaultCompletionType = "context"
 autocmd BufRead *.py set smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
-set foldmethod=indent
+set foldmethod=syntax
 set foldlevel=99
 set completeopt=menuone,longest,preview
 
@@ -57,6 +59,46 @@ autocmd FileType python let g:syntastic_check_on_wq = 0
 
 let g:pymode_options_max_line_length = 100
 let g:pymode_lint_options_pep8 = {'max_line_length': g:pymode_options_max_line_length}
+let g:pymode_paths = ['/srv','/srv/server']
+
+" Tagbar configuration for gotags. requires installing gotags.
+let g:tagbar_type_go = {
+    \ 'ctagstype' : 'go',
+    \ 'kinds'     : [
+        \ 'p:package',
+        \ 'i:imports:1',
+        \ 'c:constants',
+        \ 'v:variables',
+        \ 't:types',
+        \ 'n:interfaces',
+        \ 'w:fields',
+        \ 'e:embedded',
+        \ 'm:methods',
+        \ 'r:constructor',
+        \ 'f:functions'
+    \ ],
+    \ 'sro' : '.',
+    \ 'kind2scope' : {
+        \ 't' : 'ctype',
+        \ 'n' : 'ntype'
+    \ },
+    \ 'scope2kind' : {
+        \ 'ctype' : 't',
+        \ 'ntype' : 'n'
+    \ },
+    \ 'ctagsbin'  : 'gotags',
+    \ 'ctagsargs' : '-sort -silent'
+\ }
+
+nmap <F8> :TagbarToggle<CR>
+
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+let g:go_auto_type_info = 1
+
+au FileType go nmap <Leader>s <Plug>(go-implements)
+
 
 " Change leader to space
 let mapleader=" "
