@@ -11,14 +11,14 @@ HISTCONTROL=ignoreboth
 
 # append to the history file, don't overwrite it
 shopt -s histappend
-PROMPT_COMMAND="history -a"
+PROMPT_COMMAND="history -a; history -c; history -r"
 
 # store multiline commands as single entries
 shopt -s cmdhist
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=90000
-HISTFILESIZE=20000
+HISTSIZE=900000
+HISTFILESIZE=200000
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -116,6 +116,7 @@ export DEBFULLNAME="Cameron Cope"
 export DEBEMAIL="cam@dropbox.com"
 export UBUEMAIL=$DEBEMAIL
 export LC_ALL="en_US.UTF-8"
+export VAGRANT_DEFAULT_PROVIDER="lxc"
 
 if [ -d $RBENV ]; then
         eval "$(rbenv init -)"
