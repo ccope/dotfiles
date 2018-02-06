@@ -113,7 +113,7 @@ unset color_prompt force_color_prompt
 export COPYFILE_DISABLE=true
 export EDITOR="vim"
 export DEBFULLNAME="Cameron Cope"
-export DEBEMAIL="cam@dropbox.com"
+export DEBEMAIL="github@camcope.me"
 export UBUEMAIL=$DEBEMAIL
 export LC_ALL="en_US.UTF-8"
 export VAGRANT_DEFAULT_PROVIDER="lxc"
