@@ -9,8 +9,9 @@
 #umask 022
 
 # PATH additions
-export GOPATH="/home/cam/work/dropbox/repos/go-server"
-export PATH=/sbin:/usr/sbin:$GOPATH/bin:$PATH
+export GOPATH="$HOME/projects/go"
+export GOBIN="/usr/local/bin/go-1.8"
+export PATH=/sbin:/usr/sbin:$GOPATH/bin:$GOBIN:$HOME/.cargo/bin:$PATH
 if [ -d "$HOME/.local/bin" ] ; then
         PATH="$HOME/.local/bin:$PATH"
 fi

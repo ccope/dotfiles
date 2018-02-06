@@ -117,6 +117,8 @@ export DEBEMAIL="github@camcope.me"
 export UBUEMAIL=$DEBEMAIL
 export LC_ALL="en_US.UTF-8"
 export VAGRANT_DEFAULT_PROVIDER="lxc"
+RUST_SYSROOT=$(rustc --print sysroot)
+export RUST_SRC_PATH="${RUST_SYSROOT}/lib/rustlib/src/rust/src"
 
 if [ -d $RBENV ]; then
         eval "$(rbenv init -)"
