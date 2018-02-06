@@ -123,3 +123,7 @@ export RUST_SRC_PATH="${RUST_SYSROOT}/lib/rustlib/src/rust/src"
 if [ -d $RBENV ]; then
         eval "$(rbenv init -)"
 fi
+
+if command -v pyenv &>/dev/null; then
+        eval "$(pyenv init -)"
+fi

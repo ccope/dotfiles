@@ -20,6 +20,10 @@ export RBENV="$HOME/.rbenv/bin"
 if [ -d $RBENV ]; then
 	export PATH="$RBENV:$PATH"
 fi
+export PYENV_ROOT="$HOME/.pyenv"
+if [ -d $PYENV ]; then
+	export PATH="$PYENV_ROOT/bin:$PATH"
+fi
 
 if [ -d "$HOME/.arc_install" ]; then
 	export PATH="$PATH:$HOME/.arc_install/arcanist/bin"
