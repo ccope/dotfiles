@@ -56,15 +56,15 @@ if [ -n "$force_color_prompt" ]; then
 	color_prompt=
     fi
 fi
-if [ "$COLORTERM" == "gnome-terminal" ] || [ "$COLORTERM" == "xfce4-terminal" ]
+
+if [ -n "$TMUX" ]
 then
-	if [ "$TERM" == "screen" ] || [ -n $TMUX ]
-	then
-		TERM=screen-256color
-	else
-		TERM=xterm-256color
-	fi
-        export CLICOLOR=1
+	export TERM=screen-256color
+fi
+
+if [[ $TERM =~ .*"color" ]];
+then
+	export CLICOLOR=1
 	color_prompt=yes
 fi
 
