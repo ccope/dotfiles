@@ -12,6 +12,11 @@ alias duf='du -sk * | sort -n | perl -ne '\''($s,$f)=split(m{\t});for (qw(K M G)
 alias ..='cd ..'
 alias ...='cd ../..'
 alias +='pushd .'
+if command -v nvim &>/dev/null; then
+    alias vim='nvim'
+    alias vi='nvim'
+    alias vimdiff='nvim -d'
+fi
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert

@@ -11,9 +11,24 @@ General Setup
  - Install deps for powerline (see instructions in github repo). Don't forget pygit2!
  - pip install --user git+git://github.com/Lokaltog/powerline
 
+Python
+====
+ - pyenv
+ - Pipenv
+ - jedi
+
+Ruby
+====
+ - rbenv
+
 Vim Setup
 ====
  - Follow General Setup
- - hg clone https://bitbucket.org/ludovicchabant/vim-lawrencium into ~/.vim/bundle/
- - Download Vundle: https://github.com/gmarik/Vundle.vim#quick-start
- - Open vim, run ```:PluginInstall```
+ - Follow vim-plug setup
+ - Open vim, run ```:PlugInstall```
+
+nvim setup
+===
+ - pip install --user neovim
+ - pip3 install --user neovim
+ - Follow vim setup
