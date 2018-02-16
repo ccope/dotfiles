@@ -2,9 +2,10 @@ if has('nvim')
   let s:editor_root=expand("~/.config/nvim")
 else
   set nocompatible
+  let s:editor_root=expand("~/.vim")
 endif
 
-call plug#begin('~/.vim/plugged')
+call plug#begin(s:editor_root . '/plugged')
 " Plugins
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
