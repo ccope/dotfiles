@@ -1,1 +1,1 @@
-/home/cam/.vimrc
+../../../vim/.vimrc
