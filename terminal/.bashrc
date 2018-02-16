@@ -89,7 +89,7 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
-POWERLINE="$HOME/.local/lib/python2.7/site-packages/powerline/bindings/bash/powerline.sh"
+POWERLINE="$HOME/.local/lib/python3*/site-packages/powerline/bindings/bash/powerline.sh"
 if [ "$color_prompt" == yes ]
 then
 	export LESS="-R"
