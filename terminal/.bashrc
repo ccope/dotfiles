@@ -117,13 +117,15 @@ export DEBEMAIL="github@camcope.me"
 export UBUEMAIL=$DEBEMAIL
 export LC_ALL="en_US.UTF-8"
 export VAGRANT_DEFAULT_PROVIDER="lxc"
-RUST_SYSROOT=$(rustc --print sysroot)
-export RUST_SRC_PATH="${RUST_SYSROOT}/lib/rustlib/src/rust/src"
+if command -v rustc &>/dev/null; then
+	RUST_SYSROOT=$(rustc --print sysroot)
+	export RUST_SRC_PATH="${RUST_SYSROOT}/lib/rustlib/src/rust/src"
+fi
 
-if [ -d $RBENV ]; then
-        eval "$(rbenv init -)"
+if command -v rbenv &>/dev/null; then
+	eval "$(rbenv init -)"
 fi
 
 if command -v pyenv &>/dev/null; then
-        eval "$(pyenv init -)"
+	eval "$(pyenv init -)"
 fi
