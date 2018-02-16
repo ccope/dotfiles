@@ -5,6 +5,13 @@ else
   let s:editor_root=expand("~/.vim")
 endif
 
+" Install plugin manager on new hosts
+if empty(glob(s:editor_root . '/autoload/plug.vim'))
+  autocmd VimEnter * echom "Downloading and installing vim-plug..."
+  silent execute "!curl -fLo " . s:editor_root . "/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
 call plug#begin(s:editor_root . '/plugged')
 " Plugins
 Plug 'vim-airline/vim-airline'
