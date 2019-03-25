@@ -9,6 +9,7 @@
 [alias]
 	co = checkout
 	ci = commit
+	cia = commit --amend --no-edit
 	dt = difftool
 	st = status
 	br = branch
