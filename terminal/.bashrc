@@ -90,13 +90,21 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
-POWERLINE="$HOME/.local/lib/python3*/site-packages/powerline/bindings/bash/powerline.sh"
+if command -v pyenv &>/dev/null; then
+	eval "$(pyenv init -)"
+fi
+
+#POWERLINE="$HOME/.local/lib/python3*/site-packages/powerline/bindings/bash/powerline.sh"
+#GLOBAL_PYTHON_VERSION=$(cat $PYENV_ROOT/version)
+#POWERLINE="$HOME/.pyenv/versions/${GLOBAL_PYTHON_VERSION}/lib/python3.7/site-packages/powerline/bindings/bash/powerline.sh"
+PYTHON_SITE_PACKAGES=$(python -m site --user-site)
+POWERLINE="$PYTHON_SITE_PACKAGES/powerline/bindings/bash/powerline.sh"
 if [ "$color_prompt" == yes ]
 then
 	export LESS="-R"
 	if [ -f $POWERLINE ]
 	then
-		powerline-daemon -q
+		pyenv exec powerline-daemon -q
 		POWERLINE_BASH_CONTINUATION=1
 		POWERLINE_BASH_SELECT=1
 		. $POWERLINE
@@ -127,6 +135,3 @@ if command -v rbenv &>/dev/null; then
 	eval "$(rbenv init -)"
 fi
 
-if command -v pyenv &>/dev/null; then
-	eval "$(pyenv init -)"
-fi
