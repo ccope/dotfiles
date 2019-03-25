@@ -9,30 +9,38 @@
 #umask 022
 
 # PATH additions
-export GOPATH="$HOME/projects/go"
-export GOBIN="/usr/local/bin/go-1.8"
-export PATH=/sbin:/usr/sbin:$GOPATH/bin:$GOBIN:$HOME/.cargo/bin:$PATH
-if [ -d "$HOME/.local/bin" ] ; then
-        PATH="$HOME/.local/bin:$PATH"
-fi
+if [ -z ${PATH_CONFIGURED+x} ]; then
+	export GOPATH="$HOME/projects/go"
+	export GOBIN="/usr/local/bin/go-1.8"
+	export PATH=/sbin:/usr/sbin:$GOPATH/bin:$GOBIN:$HOME/.cargo/bin:$PATH
+	if [ -d "$HOME/.local/bin" ] ; then
+		PATH="$HOME/.local/bin:$PATH"
+	fi
 
-export RBENV="$HOME/.rbenv/bin"
-if [ -d $RBENV ]; then
-	export PATH="$RBENV:$PATH"
-fi
-export PYENV_ROOT="$HOME/.pyenv"
-if [ -d $PYENV ]; then
-	export PATH="$PYENV_ROOT/bin:$PATH"
-fi
+	export RBENV="$HOME/.rbenv/bin"
+	if [ -d $RBENV ]; then
+		export PATH="$RBENV:$PATH"
+	fi
+	export PYENV_ROOT="$HOME/.pyenv"
+	if [ -d $PYENV ]; then
+		export PATH="$PYENV_ROOT/bin:$PATH"
+	fi
 
-if [ -d "$HOME/.arc_install" ]; then
-	export PATH="$PATH:$HOME/.arc_install/arcanist/bin"
-fi
+	if [ -d "$HOME/.arc_install" ]; then
+		export PATH="$PATH:$HOME/.arc_install/arcanist/bin"
+	fi
 
-if [ -d "$HOME/bin" ] ; then
-    PATH="$HOME/bin:$PATH"
-fi
+	if [ -d "$HOME/bin" ] ; then
+	    PATH="$HOME/bin:$PATH"
+	fi
 
+	if [ -d "$HOME/.yarn/bin" ] ; then
+	    PATH="$PATH:$HOME/.yarn/bin"
+	fi
+
+	export PATH_CONFIGURED="true"
+	unset RBENV
+fi
 # if running bash
 if [ -n "$BASH_VERSION" ]; then
     # include .bashrc if it exists
@@ -41,4 +49,3 @@ if [ -n "$BASH_VERSION" ]; then
     fi
 fi
 
-unset RBENV
