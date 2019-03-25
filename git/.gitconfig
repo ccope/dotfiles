@@ -25,3 +25,7 @@
 	default = simple
 [core]
 	excludesfile = /home/cam/.gitignore
+[merge]
+	tool = vimdiff
+[merge "tool.vimdiff"]
+	cmd = vim \"+Gdiff\" $MERGED
