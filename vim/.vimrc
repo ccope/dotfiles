@@ -17,15 +17,21 @@ call plug#begin(s:editor_root . '/plugged')
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'bogado/file-line'
+Plug 'editorconfig/editorconfig-vim'
 " Syntax and Completion
-Plug 'ervandew/supertab'
+Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh', }
+"Plug 'ervandew/supertab'
 "Plug 'scrooloose/syntastic'
+" Scala
+"Plug 'ensime/ensime-vim', { 'do': ':UpdateRemotePlugins' }
+"Plug 'cloudhead/neovim-fuzzy'
+"Plug 'neomake/neomake'
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 endif
 Plug 'tpope/vim-surround'
 " Debugging
-Plug 'phcerdan/Conque-GDB'
+"Plug 'phcerdan/Conque-GDB'
 "Plug 'gilligan/vim-lldb'
 " tagbar dep: apt-get install exuberant-ctags
 "Plug 'majutsushi/tagbar'
@@ -59,8 +65,12 @@ Plug 'hashivim/vim-terraform'
 " Eye candy
 Plug 'nanotech/jellybeans.vim'
 " Rust
-Plug 'racer-rust/vim-racer'
+"Plug 'racer-rust/vim-racer'
 Plug 'rust-lang/rust.vim'
+"SQL
+Plug 'shmup/vim-sql-syntax'
+" YAML
+"Plug 'tarekbecker/vim-yaml-formatter'
 call plug#end()
 
 syntax on
@@ -68,14 +78,26 @@ set hidden
 set nomodeline
 set laststatus=2   " Always show the statusline
 set encoding=utf-8 " Necessary to show unicode glyphs
+set foldenable
+set foldlevelstart=10
+set foldnestmax=10
 set foldmethod=syntax
-set foldlevel=99
 set completeopt=menuone,longest,preview
+
+if has('nvim')
+  let g:deoplete#enable_at_startup = 1
+  let g:jedi#completions_enabled = 0
+  " enable tab completion for deoplete popup
+  inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+  inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+endif
+
 au FileType go let g:go_highlight_functions = 1
 au FileType go let g:go_highlight_methods = 1
 au FileType go let g:go_highlight_structs = 1
 au FileType go let g:go_auto_type_info = 1
 au FileType go nmap <Leader>s <Plug>(go-implements)
+au FileType javascript setlocal omnifunc=LanguageClient#complete
 au FileType puppet setlocal tabstop=4 expandtab shiftwidth=4 softtabstop=4 autoindent
 au FileType python setlocal tabstop=4 expandtab shiftwidth=4 softtabstop=4 autoindent
 au FileType ruby setlocal tabstop=2 expandtab shiftwidth=2 autoindent
@@ -85,27 +107,64 @@ au FileType rust nmap gx <Plug>(rust-def-vertical)
 au FileType rust nmap <leader>gd <Plug>(rust-doc)
 au FileType rust let rustc_sys_root = systemlist("rustc --print sysroot")[0]
 au FileType rust let RUST_SRC_PATH = rustc_sys_root + "/lib/rustlib/src"
-au FileType rust let g:racer_cmd = "~/.cargo/bin/racer"
+"au FileType rust let g:racer_cmd = "~/.cargo/bin/racer"
+au FileType scala let g:deoplete#sources = {}
+au FileType scala let g:deoplete#sources._ = ['buffer', 'member', 'tag', 'file', 'omni', 'ultisnips'] 
+au FileType scala let g:deoplete#omni#input_patterns = {} 
+au FileType scala let g:deoplete#omni#input_patterns.scala = '[^. *\t]\.\w*'
 au FileType xml setlocal tabstop=4 expandtab shiftwidth=4 softtabstop=4 autoindent
+au FileType yaml setlocal tabstop=2 expandtab shiftwidth=2 softtabstop=2 autoindent
 au BufRead *.py set smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
+augroup filetypedetect
+    au BufRead,BufNewFile *.ts set filetype=javascript
+augroup END
 
-let g:python_host_prog = "/usr/bin/python"
-let g:python3_host_prog = "/usr/bin/python3"
-let g:SuperTabDefaultCompletionType = "context"
-if has('nvim')
-  let g:deoplete#enable_at_startup = 1
-  let g:jedi#completions_enabled = 0
-endif
+au BufWritePost *.scala silent :EnTypeCheck
 
 " Change leader to space
 let mapleader=" "
 
 colorscheme jellybeans
 let g:airline_theme='jellybeans'
+let g:airline_powerline_fonts = 1
 
+let g:LanguageClient_serverCommands = {
+    \ 'javascript': ['~/.yarn/bin/javascript-typescript-stdio'],
+    \ 'rust': ['~/.cargo/bin/rustup', 'run', 'nightly', 'rls'],
+    \ 'python': ['~/.local/bin/pyls'],
+    \ }
+
+nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+
+let g:python_host_prog = "/usr/bin/python"
+let g:python3_host_prog = "/home/cam/.pyenv/shims/python3"
+let g:SuperTabDefaultCompletionType = "context"
+
+let g:terraform_fold_sections = 1
 " Auto-close doc window
 autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+
+let g:EditorConfig_exclude_patterns = ['fugitive://.*']
+" (SCALA) Linting with neomake
+let g:neomake_sbt_maker = {
+      \ 'exe': 'sbt',
+      \ 'args': ['-Dsbt.log.noformat=true', 'compile'],
+      \ 'append_file': 0,
+      \ 'auto_enabled': 1,
+      \ 'output_stream': 'stdout',
+      \ 'errorformat':
+          \ '%E[%trror]\ %f:%l:\ %m,' .
+            \ '%-Z[error]\ %p^,' .
+            \ '%-C%.%#,' .
+            \ '%-G%.%#'
+     \ }
+
+au FileType scala let g:neomake_enabled_makers = ['sbt']
+let g:neomake_verbose=3
+
+" Neomake on text change
+autocmd InsertLeave,TextChanged *.scala update | Neomake! sbt
 
 " Use python-mode instead of syntastic on py files
 "let g:syntastic_ignore_files = ['\.py$']
