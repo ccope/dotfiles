@@ -27,6 +27,14 @@
 [core]
 	excludesfile = /home/cam/.gitignore
 [merge]
-	tool = vimdiff
+	#tool = vimdiff
+	tool = difftastic
+[diff]
+	tool = difftastic
+	prompt = false
+
+[difftool "difftastic"]
+	cmd = difft "$LOCAL" "$REMOTE"
+
 [merge "tool.vimdiff"]
 	cmd = vim \"+Gdiff\" $MERGED
