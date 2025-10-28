@@ -115,6 +115,11 @@ else
 	PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
 
+SK_DIR="${HOME}/repos/github/lotabout/skim"
+if [ -d "$SK_DIR/shell/" ]; then
+	source "$SK_DIR/shell/key-bindings.bash"  # This loads SK completions
+	source "$SK_DIR/shell/completion.bash"  # This loads SK completions
+fi
 
 unset color_prompt force_color_prompt
 
