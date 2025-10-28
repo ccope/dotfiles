@@ -92,6 +92,7 @@ fi
 
 if command -v pyenv &>/dev/null; then
 	eval "$(pyenv init -)"
+	PYENV_INIT=1
 fi
 
 #POWERLINE="$HOME/.local/lib/python3*/site-packages/powerline/bindings/bash/powerline.sh"
