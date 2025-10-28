@@ -131,15 +131,10 @@ export DEBEMAIL="github@camcope.me"
 export UBUEMAIL=$DEBEMAIL
 export LC_ALL="en_US.UTF-8"
 export VAGRANT_DEFAULT_PROVIDER="lxc"
-if command -v rustc &>/dev/null; then
-	RUST_SYSROOT=$(rustc --print sysroot)
-	export RUST_SRC_PATH="${RUST_SYSROOT}/lib/rustlib/src/rust/src"
-fi
 
 if command -v rbenv &>/dev/null; then
 	eval "$(rbenv init -)"
 fi
-
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
