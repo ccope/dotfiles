@@ -10,37 +10,47 @@
 
 # PATH additions
 if [ -z ${PATH_CONFIGURED+x} ]; then
-	export GOPATH="$HOME/projects/go"
-	export GOBIN="/usr/local/bin/go-1.8"
-	export PATH=/sbin:/usr/sbin:$GOPATH/bin:$GOBIN:$HOME/.cargo/bin:$PATH
-	if [ -d "$HOME/.local/bin" ] ; then
-		PATH="$HOME/.local/bin:$PATH"
-	fi
-
-	export RBENV="$HOME/.rbenv/bin"
-	if [ -d $RBENV ]; then
-		export PATH="$RBENV:$PATH"
-	fi
-	export PYENV_ROOT="$HOME/.pyenv"
-	if [ -d $PYENV ]; then
-		export PATH="$PYENV_ROOT/bin:$PATH"
-	fi
-
-	if [ -d "$HOME/.arc_install" ]; then
-		export PATH="$PATH:$HOME/.arc_install/arcanist/bin"
-	fi
-
-	if [ -d "$HOME/bin" ] ; then
-	    PATH="$HOME/bin:$PATH"
-	fi
-
 	if [ -d "$HOME/.yarn/bin" ] ; then
 	    PATH="$PATH:$HOME/.yarn/bin"
 	fi
 
-	export PATH_CONFIGURED="true"
+	export RBENV="$HOME/.rbenv/bin"
+	if [[ -d $RBENV && "$PATH" != [:^]*"$RBENV"[:$]* ]]; then
+		export PATH="$PATH:$RBENV"
+	fi
 	unset RBENV
+
+	export POETRY="$HOME/.poetry/bin"
+	if [[ -d $POETRY && "$PATH" != [:^]*"$POETRY"[:$]* ]]; then
+		export PATH="$PATH:$POETRY"
+	fi
+	unset POETRY
+
+	export PYENV_ROOT="$HOME/.pyenv/bin"
+	if [[ -d $PYENV_ROOT && "$PATH" != [:^]*"$PYENV_ROOT"[:$]* ]]; then
+		export PATH="$PATH:$PYENV_ROOT"
+	fi
+	unset PYENV_ROOT
+
+	if [[ -d "$HOME/projects/go/bin" && "$PATH" != [:^]*"$HOME/projects/go/bin"[:$]* ]]; then
+		PATH="$PATH:$HOME/projects/go/bin"
+	fi
+
+	if [[ -d "$HOME/.cargo/bin" && "$PATH" != [:^]*"$HOME/cargo/bin"[:$]* ]]; then
+		PATH="$PATH:$HOME/.cargo/bin"
+	fi
+
+	if [[ -d "$HOME/.local/bin" && "$PATH" != [:^]*"$HOME/.local/bin"[:$]* ]]; then
+		PATH="$PATH:$HOME/.local/bin"
+	fi
+
+	#if [[ -d "$HOME/bin" && "$PATH" != [:^]*"$HOME/bin"[:$]* ]]; then
+	#    PATH="$PATH:$HOME/bin"
+	#fi
+
+	export PATH_CONFIGURED="true"
 fi
+
 # if running bash
 if [ -n "$BASH_VERSION" ]; then
     # include .bashrc if it exists
