@@ -125,7 +125,7 @@ unset color_prompt force_color_prompt
 
 # Environment Variables
 export COPYFILE_DISABLE=true
-export EDITOR="vim"
+export EDITOR="nvim"
 export DEBFULLNAME="Cameron Cope"
 export DEBEMAIL="github@camcope.me"
 export UBUEMAIL=$DEBEMAIL
