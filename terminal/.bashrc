@@ -66,6 +66,8 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
+# for color output default on BSD-derived coreutils
+export CLICOLOR=1
 
 GIT_PS1_SHOWDIRTYSTATE=1
 GIT_PS1_SHOWSTASHSTATE=1
