@@ -59,3 +59,8 @@ if [ -n "$BASH_VERSION" ]; then
     fi
 fi
 
+export MOZ_DBUS_REMOTE=1
+export MOZ_ENABLE_WAYLAND=1
+export GOPATH="$HOME/projects/go"
+export GOBIN="$HOME/projects/go/bin"
+export GOROOT="$HOME/.go"
