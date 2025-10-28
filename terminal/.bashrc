@@ -95,17 +95,16 @@ fi
 #POWERLINE="$HOME/.local/lib/python3*/site-packages/powerline/bindings/bash/powerline.sh"
 #GLOBAL_PYTHON_VERSION=$(cat $PYENV_ROOT/version)
 #POWERLINE="$HOME/.pyenv/versions/${GLOBAL_PYTHON_VERSION}/lib/python3.7/site-packages/powerline/bindings/bash/powerline.sh"
-PYTHON_SITE_PACKAGES=$(python -m site --user-site)
-POWERLINE="$PYTHON_SITE_PACKAGES/powerline/bindings/bash/powerline.sh"
+POWERLINE=($HOME/.local/pipx/venvs/powerline-status/lib/python3*/site-packages/powerline/bindings/bash/powerline.sh)
 if [ "$color_prompt" == yes ]
 then
 	export LESS="-R"
-	if [ -f $POWERLINE ]
+	if [[ -e ${POWERLINE[-1]} ]]
 	then
-		pyenv exec powerline-daemon -q
+		powerline-daemon -q
 		POWERLINE_BASH_CONTINUATION=1
 		POWERLINE_BASH_SELECT=1
-		. $POWERLINE
+		. ${POWERLINE[-1]}
 	else
 		PS1='[\[\e[0;32m\]\u\[\e[1;37m\]@\[\e[1;37m\]\H\[\e[1;33m\]:\w$(__git_ps1 " (%s)")\[\e[0m\]]\$ '
 	fi
