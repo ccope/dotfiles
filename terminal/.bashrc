@@ -39,7 +39,15 @@ fi
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
-    xterm-color) color_prompt=yes;;
+    xterm-color)
+        color_prompt=yes
+        ;;
+    alacritty)
+        color_prompt=yes
+        ;;
+    *color)
+        color_prompt=yes
+        ;;
 esac
 
 # uncomment for a colored prompt, if the terminal has the capability; turned
@@ -58,16 +66,6 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
-if [ -n "$TMUX" ]
-then
-	export TERM=screen-256color
-fi
-
-if [[ $TERM =~ .*"color" ]];
-then
-	export CLICOLOR=1
-	color_prompt=yes
-fi
 
 GIT_PS1_SHOWDIRTYSTATE=1
 GIT_PS1_SHOWSTASHSTATE=1
