@@ -39,7 +39,15 @@ fi
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
-    xterm-color) color_prompt=yes;;
+    xterm-color)
+        color_prompt=yes
+        ;;
+    alacritty)
+        color_prompt=yes
+        ;;
+    *color)
+        color_prompt=yes
+        ;;
 esac
 
 # uncomment for a colored prompt, if the terminal has the capability; turned
@@ -58,16 +66,8 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
-if [ -n "$TMUX" ]
-then
-	export TERM=screen-256color
-fi
-
-if [[ $TERM =~ .*"color" ]];
-then
-	export CLICOLOR=1
-	color_prompt=yes
-fi
+# for color output default on BSD-derived coreutils
+export CLICOLOR=1
 
 GIT_PS1_SHOWDIRTYSTATE=1
 GIT_PS1_SHOWSTASHSTATE=1
@@ -92,22 +92,22 @@ fi
 
 if command -v pyenv &>/dev/null; then
 	eval "$(pyenv init -)"
+	PYENV_INIT=1
 fi
 
 #POWERLINE="$HOME/.local/lib/python3*/site-packages/powerline/bindings/bash/powerline.sh"
 #GLOBAL_PYTHON_VERSION=$(cat $PYENV_ROOT/version)
 #POWERLINE="$HOME/.pyenv/versions/${GLOBAL_PYTHON_VERSION}/lib/python3.7/site-packages/powerline/bindings/bash/powerline.sh"
-PYTHON_SITE_PACKAGES=$(python -m site --user-site)
-POWERLINE="$PYTHON_SITE_PACKAGES/powerline/bindings/bash/powerline.sh"
+POWERLINE=($HOME/.local/pipx/venvs/powerline-status/lib/python3*/site-packages/powerline/bindings/bash/powerline.sh)
 if [ "$color_prompt" == yes ]
 then
 	export LESS="-R"
-	if [ -f $POWERLINE ]
+	if [[ -e ${POWERLINE[-1]} ]]
 	then
-		pyenv exec powerline-daemon -q
+		powerline-daemon -q
 		POWERLINE_BASH_CONTINUATION=1
 		POWERLINE_BASH_SELECT=1
-		. $POWERLINE
+		. ${POWERLINE[-1]}
 	else
 		PS1='[\[\e[0;32m\]\u\[\e[1;37m\]@\[\e[1;37m\]\H\[\e[1;33m\]:\w$(__git_ps1 " (%s)")\[\e[0m\]]\$ '
 	fi
@@ -115,26 +115,26 @@ else
 	PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
 
+SK_DIR="${HOME}/repos/github/lotabout/skim"
+if [ -d "$SK_DIR/shell/" ]; then
+	source "$SK_DIR/shell/key-bindings.bash"  # This loads SK completions
+	source "$SK_DIR/shell/completion.bash"  # This loads SK completions
+fi
 
 unset color_prompt force_color_prompt
 
 # Environment Variables
 export COPYFILE_DISABLE=true
-export EDITOR="vim"
+export EDITOR="nvim"
 export DEBFULLNAME="Cameron Cope"
 export DEBEMAIL="github@camcope.me"
 export UBUEMAIL=$DEBEMAIL
 export LC_ALL="en_US.UTF-8"
 export VAGRANT_DEFAULT_PROVIDER="lxc"
-if command -v rustc &>/dev/null; then
-	RUST_SYSROOT=$(rustc --print sysroot)
-	export RUST_SRC_PATH="${RUST_SYSROOT}/lib/rustlib/src/rust/src"
-fi
 
 if command -v rbenv &>/dev/null; then
 	eval "$(rbenv init -)"
 fi
-
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
