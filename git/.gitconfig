@@ -22,6 +22,9 @@
 	stashp = show stash@{0}
 	stashs  = "!f() { git show stash@{$1} ; }; f"
 	quick-stats = ! /home/cam/.local/bin/git-quick-stats
+	prs = "!f() { git config --add remote.origin.fetch \"+refs/pull/*/head:refs/remotes/origin/pr/*\"; }; f"
+	pr = "!f() { git fetch origin; git checkout \"origin/pr/$1\"; }; f"
+
 [push]
 	default = simple
 [core]
