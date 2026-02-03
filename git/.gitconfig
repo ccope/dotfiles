@@ -18,14 +18,28 @@
 	change = !sh -c 'git difftool ${1-HEAD}^ ${1-HEAD}' -
 	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --decorate
 	hist = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
-	pr  = "!f() { git fetch -fu ${2:-origin} refs/pull/$1/head:pr/$1 && git checkout pr/$1; }; f"
-	stashpeek = show stash@{0}
-	stashshow  = "!f() { git show stash@{$1} ; }; f"
+	getpr  = "!f() { git fetch -fu ${2:-origin} refs/pull/$1/head:pr/$1 && git checkout pr/$1; }; f"
+	stashp = show stash@{0}
+	stashs  = "!f() { git show stash@{$1} ; }; f"
+	quick-stats = ! /home/cam/.local/bin/git-quick-stats
+	prs = "!f() { git config --add remote.origin.fetch \"+refs/pull/*/head:refs/remotes/origin/pr/*\"; }; f"
+	pr = "!f() { git fetch origin; git checkout \"origin/pr/$1\"; }; f"
+
 [push]
 	default = simple
 [core]
 	excludesfile = /home/cam/.gitignore
 [merge]
-	tool = vimdiff
+	#tool = vimdiff
+	tool = difftastic
+[diff]
+	tool = difftastic
+	prompt = false
+
+[difftool "difftastic"]
+	cmd = difft "$LOCAL" "$REMOTE"
+
 [merge "tool.vimdiff"]
 	cmd = vim \"+Gdiff\" $MERGED
+[init]
+	defaultBranch = main
